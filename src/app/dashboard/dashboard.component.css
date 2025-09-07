@@ -1,0 +1,316 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #2c3e50;
+    line-height: 1.6;
+}
+/* --- TOPBAR --- */
+.topbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    background: linear-gradient(45deg, #fff, #a8edea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.nav {
+    display: flex;
+    gap: 40px;
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    padding: 10px 20px;
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+}
+.nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+.nav a:hover::before {
+    left: 100%;
+}
+.nav a:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+}
+/* --- MAP SECTION --- */
+.map-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 60px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.map-title {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+.world-map {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+.world-map svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+.continent {
+    fill: #34495e;
+    stroke: #2c3e50;
+    stroke-width: 1;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.continent:hover {
+    fill: #e74c3c;
+    transform: scale(1.05);
+}
+.continent.active {
+    fill: #27ae60;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% {
+        opacity: 1;
+   }
+    50% {
+        opacity: 0.7;
+   }
+    100% {
+        opacity: 1;
+   }
+}
+.market-indicator {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #e74c3c;
+    border-radius: 50%;
+    animation: marketPulse 3s infinite;
+    cursor: pointer;
+}
+.market-indicator.positive {
+    background: #27ae60;
+}
+@keyframes marketPulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+   }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+   }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+   }
+}
+/* --- NEWS TICKER --- */
+.news-section {
+    height: 100px;
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.news-label {
+    background: #2d3436;
+    color: white;
+    padding: 15px 30px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    z-index: 10;
+}
+.news-ticker {
+    display: flex;
+    gap: 100px;
+    position: absolute;
+    left: 200px;
+    white-space: nowrap;
+    animation: ticker 25s linear infinite;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+}
+@keyframes ticker {
+    0% {
+        transform: translateX(100vw);
+   }
+    100% {
+        transform: translateX(-100%);
+   }
+}
+.news-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+/* --- EQUITY CHART --- */
+.equity-section {
+    background: white;
+    margin: 40px 50px;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+}
+.chart-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.equity-section canvas {
+    width: 100% !important;
+    height: 400px !important;
+}
+/* --- GAINERS & LOSERS --- */
+.gainers-losers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 0 50px 50px;
+}
+.card-container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+.card-container:hover {
+    transform: translateY(-5px);
+}
+.card-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.gainers h2 {
+    color: #27ae60;
+    border-bottom: 3px solid #27ae60;
+    padding-bottom: 10px;
+}
+.losers h2 {
+    color: #e74c3c;
+    border-bottom: 3px solid #e74c3c;
+    padding-bottom: 10px;
+}
+.stock-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.stock-card:hover {
+    background: #f8f9fa;
+    transform: translateX(5px);
+}
+.stock-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+.stock-card img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.stock-info h4 {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+.stock-info span {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+.stock-price {
+    text-align: right;
+}
+.price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+.gain {
+    color: #27ae60;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.loss {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .topbar {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+   }
+    .nav {
+        gap: 20px;
+   }
+    .gainers-losers {
+        grid-template-columns: 1fr;
+        padding: 0 20px 30px;
+   }
+    .equity-section {
+        margin: 20px;
+        padding: 20px;
+   }
+    .map-title {
+        font-size: 2rem;
+   }
+}

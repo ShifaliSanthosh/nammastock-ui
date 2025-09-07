@@ -1,6 +1,8 @@
-import { Component , OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ImageLoaderService } from '../image-loader.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,15 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   logoUrl: string = '';
 
-  constructor(private formBuilder: FormBuilder,private imageLoader: ImageLoaderService) {
+  errorMessage: string = '';
+  hidePassword = true;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private imageLoader: ImageLoaderService,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -29,9 +39,14 @@ export class LoginComponent implements OnInit {
   }
   onSubmit(): void {
     if (this.loginForm.valid) {
-      console.log('Login form submitted');
-    } else {
-      return;
+      const credentials = this.loginForm.value;
+      const success = this.authService.login(credentials);
+      
+      if (success) {
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.errorMessage = 'Invalid email or password';
+      }
     }
   }
 }
