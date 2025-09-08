@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -16,23 +17,30 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.registerForm = this.fb.group({
-      name: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      country:['']
     });
   }
 
   onSubmit() {
     if (this.registerForm.valid) {
-      const success = this.authService.register(this.registerForm.value);
-      if (success) {
-        this.router.navigate(['/dashboard']);
-      } else {
-        this.errorMessage = 'Registration failed. Please try again.';
+      console.log("Reached here")
+    this.http.post('http://localhost:8080/api/auth/register', this.registerForm.value).subscribe({
+      next: (res: any) => {
+        console.log('Registration success:', res);
+        this.router.navigate(['/dashboard']); // redirect to dashboard
+      },
+      error: (err) => {
+        console.error('Registration failed:', err);
       }
+    });
+
     }
   }
 
