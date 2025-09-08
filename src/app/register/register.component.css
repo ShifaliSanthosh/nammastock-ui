@@ -1,56 +1,73 @@
-.register-container {
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 20px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
 }
 
-.register-card {
-  width: 100%;
-  max-width: 500px;
+.form-container {
+  background: #fff;
   padding: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 350px;
 }
 
-.full-width {
-  width: 100%;
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.form-group {
   margin-bottom: 1rem;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin: 1.5rem 0;
-}
-
-button[mat-raised-button] {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-}
-
-.login-link {
-  text-align: center;
-  margin-top: 1rem;
-  color: #666;
-}
-
-.login-link a {
-  color: #3f51b5;
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.login-link a:hover {
-  text-decoration: underline;
-}
-
-.error-message {
-  color: #f44336;
-  text-align: center;
-  margin-top: 1rem;
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
   font-size: 0.9rem;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2575fc;
+  box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+}
+
+.form-btn {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  background: #2575fc;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-btn:hover {
+  background: #1a5edb;
 }
