@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ImageLoaderService } from '../image-loader.service';
 import { AuthService } from '../auth.service';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

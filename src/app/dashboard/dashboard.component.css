@@ -169,10 +169,19 @@ body {
     position: absolute;
     left: 200px;
     white-space: nowrap;
-    animation: ticker 25s linear infinite;
+    animation: ticker 80s linear infinite;
     font-size: 1.1rem;
     font-weight: 600;
     color: white;
+}
+.positive {
+  color: green;
+  font-weight: bold;
+}
+
+.negative {
+  color: red;
+  font-weight: bold;
 }
 @keyframes ticker {
     0% {

@@ -1,128 +1,117 @@
 <!-- TOPBAR -->
 <div class="topbar">
-    <div class="logo">GlobalStockHub</div>
-    <div class="nav">
-      <a href="#">HOME</a>
-      <a href="#">MARKETS</a>
-      <a href="#">NEWS</a>
-      <a href="#">ANALYTICS</a>
-      <a (click)="toggleSignup()">SIGNUP</a>
+  <div class="logo">GlobalStockHub</div>
+  <div class="nav">
+    <a href="#">HOME</a>
+    <a href="#">MARKETS</a>
+    <a href="#">NEWS</a>
+    <a href="#">ANALYTICS</a>
+    <a (click)="toggleSignup()">SIGNUP</a>
+  </div>
+</div>
+
+<!-- SIGNUP PAGE -->
+<div *ngIf="showSignup" class="signup-container">
+  <h2>Create Account</h2>
+  <form (ngSubmit)="onSignup()">
+    <label>Email</label>
+    <input
+      type="email"
+      [(ngModel)]="signup.email"
+      name="email"
+      required
+    />
+
+    <label>Password</label>
+    <input
+      type="password"
+      [(ngModel)]="signup.password"
+      name="password"
+      required
+    />
+
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
+
+<!-- DASHBOARD -->
+<div *ngIf="!showSignup">
+  <!-- MAP SECTION -->
+  <div class="map-section">
+    <h1 class="map-title">Global Market Overview</h1>
+    <div class="world-map">
+      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+        <!-- continents + circles -->
+      </svg>
     </div>
   </div>
-  
-  <!-- SIGNUP PAGE -->
-  <div *ngIf="showSignup" class="signup-container">
-    <h2>Create Account</h2>
-    <form (ngSubmit)="onSignup()">
-      <label>Email</label>
-      <input type="email" [(ngModel)]="signup.email" name="email" required />
-  
-      <label>Password</label>
-      <input type="password" [(ngModel)]="signup.password" name="password" required />
-  
-      <button type="submit">Sign Up</button>
-    </form>
+
+  <!-- NEWS TICKER -->
+  <div class="news-section">
+    <div class="news-label">LIVE NEWS</div>
+    <div class="news-ticker">
+      <div class="news-item" *ngFor="let item of news">
+        {{ item }}
+      </div>
+    </div>
   </div>
-  
-  <!-- DASHBOARD -->
-  <div *ngIf="!showSignup">
-    <!-- MAP SECTION -->
-    <div class="map-section">
-      <h1 class="map-title">Global Market Overview</h1>
-      <div class="world-map">
-        <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
-          <!-- continents + circles same as your HTML -->
-        </svg>
-      </div>
-    </div>
-  
-    <!-- NEWS TICKER -->
-    <div class="news-section">
-      <div class="news-label">LIVE NEWS</div>
-      <div class="news-ticker">
-        <div class="news-item">📈 S&P 500 reaches new all-time high amid strong earnings</div>
-        <div class="news-item">🌏 Asian markets surge following positive economic data</div>
-        <div class="news-item">💰 Fed signals potential rate cuts in upcoming meetings</div>
-        <div class="news-item">🏭 Tech stocks lead market rally with AI innovation boom</div>
-        <div class="news-item">📊 Inflation data shows continued cooling trend</div>
-      </div>
-    </div>
-  
-    <!-- EQUITY CHART -->
-    <div class="equity-section">
-      <h2 class="chart-title">Market Performance - Last 5 Days</h2>
+
+  <!-- EQUITY CHART -->
+  <div class="equity-section">
+    <h2 class="chart-title">Market Performance (Index vs 50 DMA)</h2>
+    <div class="chart-container">
       <canvas id="equityChart"></canvas>
     </div>
-  
-    <!-- GAINERS & LOSERS -->
-    <div class="gainers-losers">
-      <div class="card-container gainers">
-        <h2>🚀 Top Gainers</h2>
-        <!-- Copy stock cards here -->
-        <div class="stock-card"> <div class="stock-left"> <img src="https://logo.clearbit.com/apple.com" alt="Apple"> <div class="stock-info"> <h4>Apple Inc.</h4> <span>AAPL</span> </div> </div> <div class="stock-price"> <div class="price">$175.43</div> <div class="gain">+3.5%</div> </div> </div> <div class="stock-card"> <div class="stock-left"> <img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft"> <div class="stock-info"> <h4>Microsoft Corp.</h4> <span>MSFT</span> </div> </div> <div class="stock-price"> <div class="price">$378.91</div> <div class="gain">+2.8%</div> </div> </div> <div class="stock-card"> <div class="stock-left"> <img src="https://logo.clearbit.com/nvidia.com" alt="NVIDIA"> <div class="stock-info"> <h4>NVIDIA Corp.</h4> <span>NVDA</span> </div> </div> <div class="stock-price"> <div class="price">$421.67</div> <div class="gain">+4.2%</div> </div> </div> <div class="stock-card"> <div class="stock-left"> <img src="https://logo.clearbit.com/tesla.com" alt="Tesla"> <div class="stock-info"> <h4>Tesla Inc.</h4> <span>TSLA</span> </div> </div> <div class="stock-price"> <div class="price">$248.52</div> <div class="gain">+1.9%</div> </div> </div>
+  </div>
 
+  <!-- GAINERS & LOSERS -->
+  <div class="gainers-losers">
+    <!-- Top Gainers -->
+    <div class="card-container gainers">
+      <h2>🚀 Top Gainers</h2>
+      <div class="stock-card" *ngFor="let stock of topGainers">
+        <div class="stock-left">
+          <div class="stock-info">
+            <h4>{{ stock.company_name }}</h4>
+          </div>
+        </div>
+        <div class="stock-price">
+          <div class="price">{{ stock.price }}</div>
+          <div
+            class="change"
+            [ngClass]="{
+              positive: stock.percent_change > 0,
+              negative: stock.percent_change < 0
+            }"
+          >
+            {{ stock.percent_change }}%
+          </div>
+        </div>
       </div>
-  
-      <div class="card-container losers">
-        <h2>📉 Top Losers</h2>
-        <!-- Copy stock cards here -->
-        <div class="stock-card">
-            <div class="stock-left">
-              <img src="https://logo.clearbit.com/meta.com" alt="Meta">
-              <div class="stock-info">
-                <h4>Meta Platforms</h4>
-                <span>META</span>
-              </div>
-            </div>
-            <div class="stock-price">
-              <div class="price">$298.35</div>
-              <div class="loss">-4.2%</div>
-            </div>
-          </div>
-    
-          <div class="stock-card">
-            <div class="stock-left">
-              <img src="https://logo.clearbit.com/netflix.com" alt="Netflix">
-              <div class="stock-info">
-                <h4>Netflix Inc.</h4>
-                <span>NFLX</span>
-              </div>
-            </div>
-            <div class="stock-price">
-              <div class="price">$442.18</div>
-              <div class="loss">-2.9%</div>
-            </div>
-          </div>
-    
-          <div class="stock-card">
-            <div class="stock-left">
-              <img src="https://logo.clearbit.com/disney.com" alt="Disney">
-              <div class="stock-info">
-                <h4>Walt Disney Co.</h4>
-                <span>DIS</span>
-              </div>
-            </div>
-            <div class="stock-price">
-              <div class="price">$89.24</div>
-              <div class="loss">-3.1%</div>
-            </div>
-          </div>
-    
-          <div class="stock-card">
-            <div class="stock-left">
-              <img src="https://logo.clearbit.com/boeing.com" alt="Boeing">
-              <div class="stock-info">
-                <h4>Boeing Co.</h4>
-                <span>BA</span>
-              </div>
-            </div>
-            <div class="stock-price">
-              <div class="price">$156.78</div>
-              <div class="loss">-1.8%</div>
-            </div>
-          </div>
+    </div>
 
+    <!-- Top Losers -->
+    <div class="card-container losers">
+      <h2>📉 Top Losers</h2>
+      <div class="stock-card" *ngFor="let stock of topLossers">
+        <div class="stock-left">
+          <div class="stock-info">
+            <h4>{{ stock.company_name }}</h4>
+          </div>
+        </div>
+        <div class="stock-price">
+          <div class="price">{{ stock.price }}</div>
+          <div
+            class="change"
+            [ngClass]="{
+              positive: stock.percent_change > 0,
+              negative: stock.percent_change < 0
+            }"
+          >
+            {{ stock.percent_change }}%
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  
+</div>
