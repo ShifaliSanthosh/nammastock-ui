@@ -14,13 +14,17 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IpoComponent } from './ipo/ipo.component';
+import { CommoditiesComponent } from './commodities/commodities.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    IpoComponent,
+    CommoditiesComponent
   ],
   imports: [
     // Angular modules

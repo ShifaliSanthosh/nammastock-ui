@@ -1,0 +1,234 @@
+:root {
+    --bg: #071022;
+    --card: rgba(255, 255, 255, 0.02);
+    --muted: #9aa6b2;
+    --accent: #6c5ce7;
+    --status-open: #19a974;
+    --status-upcoming: #f0b429;
+    --status-closed: #ff6b6b;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(180deg, var(--bg), #041022 120%);
+    color: #e7eef8;
+    padding: 1.2rem;
+}
+
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 1.15rem
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: .88rem
+}
+
+.controls {
+    display: flex;
+    gap: .6rem;
+    align-items: center
+}
+
+input[type="search"] {
+    background: var(--card);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: .5rem .75rem;
+    border-radius: 10px;
+    color: inherit;
+    min-width: 200px;
+}
+
+select {
+    background: transparent;
+    color: var(--muted);
+    border: 1px dashed rgba(255, 255, 255, 0.04);
+    padding: .4rem .6rem;
+    border-radius: 8px
+}
+
+/* Summary */
+.container {
+    max-width: 1100px;
+    margin: 0 auto
+}
+
+.summary {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap
+}
+
+.summary-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    border-radius: 12px;
+    padding: 12px 16px;
+    flex: 1;
+    min-width: 140px;
+    border: 1px solid rgba(255, 255, 255, 0.03)
+}
+
+.summary-card h3 {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: .9rem
+}
+
+.big {
+    font-size: 1.3rem;
+    margin-top: .35rem;
+    font-weight: 700
+}
+
+/* List layout */
+.list-wrap {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+    border-radius: 12px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    overflow: hidden
+}
+
+.list-head {
+    display: grid;
+    grid-template-columns: 2fr 0.9fr 2fr 1fr;
+    gap: 16px;
+    padding: 12px 16px;
+    color: var(--muted);
+    font-weight: 700;
+    font-size: .92rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02)
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 2fr 0.9fr 2fr 1fr;
+    gap: 16px;
+    padding: 12px 16px;
+    align-items: center;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.02);
+    transition: background .12s ease, transform .08s ease
+}
+
+.row:hover {
+    background: rgba(255, 255, 255, 0.015);
+    transform: translateY(-3px)
+}
+
+/* Name block */
+.name-block {
+    display: flex;
+    flex-direction: column
+}
+
+.name-block .title {
+    font-weight: 700
+}
+
+.name-block .sub {
+    font-size: .85rem;
+    color: var(--muted);
+    margin-top: 4px
+}
+
+/* Status badge */
+.badge {
+    display: inline-block;
+    padding: .35rem .6rem;
+    border-radius: 999px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.02)
+}
+
+.badge.open {
+    color: var(--status-open)
+}
+
+.badge.upcoming {
+    color: var(--status-upcoming)
+}
+
+.badge.closed {
+    color: var(--status-closed)
+}
+
+/* Additional text */
+.additional {
+    color: var(--muted);
+    font-size: .92rem
+}
+
+/* Document button */
+.doc-btn {
+    display: inline-block;
+    padding: .45rem .7rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    text-decoration: none;
+    color: inherit;
+    font-weight: 700
+}
+
+.doc-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.45)
+}
+
+/* Footer */
+.footer {
+    max-width: 1100px;
+    margin: 12px auto 0;
+    color: var(--muted);
+    font-size: .85rem;
+    text-align: right
+}
+
+/* Responsive */
+@media (max-width:900px) {
+
+    .list-head,
+    .row {
+        grid-template-columns: 1fr 0.8fr;
+        grid-auto-rows: auto
+    }
+
+    .row>.additional,
+    .row>.doc {
+        justify-self: end
+    }
+}
+
+@media (max-width:520px) {
+    .brand .subtitle {
+        display: none
+    }
+
+    input[type="search"] {
+        min-width: 120px
+    }
+
+    .summary {
+        flex-direction: column
+    }
+}

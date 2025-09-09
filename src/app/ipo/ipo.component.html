@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>IPOs</title>
+    <link rel="stylesheet" href="ipo.component.css" />
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <h1>IPO Tracker</h1>
+            <p class="subtitle">Live list of upcoming / open / closed IPOs</p>
+        </div>
+
+        <div class="controls">
+            <input id="search" type="search" placeholder="Search IPO name..." aria-label="Search IPOs" />
+            <select id="status-filter" aria-label="Filter by status">
+                <option value="all">All statuses</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="open">Open</option>
+                <option value="closed">Closed</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="summary">
+            <div class="summary-card">
+                <h3>Total IPOs</h3>
+                <p class="big" id="total">0</p>
+            </div>
+            <div class="summary-card">
+                <h3>Open Now</h3>
+                <p class="big" id="open-count">0</p>
+            </div>
+            <div class="summary-card">
+                <h3>Upcoming</h3>
+                <p class="big" id="upcoming-count">0</p>
+            </div>
+        </section>
+
+        <section class="list-wrap" aria-label="IPOs list">
+            <div class="list-head">
+                <div>Name</div>
+                <div>Status</div>
+                <div>Details</div>
+                <div>Documents</div>
+            </div>
+
+            <!-- injected rows -->
+            <div id="ipo-rows" class="rows"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <small id="last-updated">Last updated: —</small>
+    </footer>
+
+    <script src="ipo.js"></script>
+</body>
+
+</html>
