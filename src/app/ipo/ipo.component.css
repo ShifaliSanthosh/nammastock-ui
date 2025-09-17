@@ -1,0 +1,173 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0b0d;
+    color: #e4e4e7;
+    line-height: 1.5;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  /* Topbar */
+  .topbar {
+    background: rgba(10, 11, 13, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid #1f2937;
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .nav {
+    display: flex;
+    gap: 12px;
+  }
+
+  .nav a {
+    color: #9ca3af;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .nav a:hover,
+  .nav a:focus {
+    background: #1f2937;
+    color: #10b981;
+  }
+
+  /* Section Titles */
+  .section-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    text-align: center;
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Loader */
+  .loader {
+    border: 6px solid #1f2937;
+    border-top: 6px solid #10b981;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 40px auto;
+    animation: spin 1.5s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+:host {
+    display: block;
+    color: #e4e4e7;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Title */
+  .section-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 24px 0;
+    text-align: center;
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* Container */
+  .ipo-section {
+    max-width: 1100px;
+    margin: 32px auto 64px;
+    padding: 0 16px;
+  }
+  
+  /* GRID — this is the key piece you were missing */
+  .ipo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  
+  /* Cards */
+  .ipo-item {
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 16px;
+    transition: background .2s ease, border-color .2s ease, transform .15s ease;
+  }
+  .ipo-item:hover {
+    background: #1e293b;
+    border-color: #2b3746;
+    transform: translateY(-1px);
+  }
+  
+  .ipo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .ipo-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .ipo-status {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+    line-height: 1;
+  }
+  .status-open { background: rgba(16,185,129,.12); color: #10b981; }
+  .status-closed { background: rgba(239,68,68,.12); color: #ef4444; }
+  .status-upcoming { background: rgba(59,130,246,.12); color: #3b82f6; }
+  
+  .ipo-text {
+    margin: 6px 0 12px;
+    color: #cfd5de;
+    font-size: 14px;
+  }
+  
+  .ipo-link {
+    color: #7aa9ff;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .ipo-link:hover { text-decoration: underline; }
+  
+  /* Empty state */
+  .no-data {
+    text-align: center;
+    color: #9ca3af;
+    margin-top: 12px;
+  }
+  

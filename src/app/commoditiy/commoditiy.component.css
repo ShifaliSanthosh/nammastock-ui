@@ -1,0 +1,137 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0a0b0d;
+  color: #e4e4e7;
+  line-height: 1.5;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Topbar */
+.topbar {
+  background: rgba(10, 11, 13, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid #1f2937;
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav {
+  display: flex;
+  gap: 12px;
+}
+
+.nav a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav a:hover,
+.nav a:focus {
+  background: #1f2937;
+  color: #10b981;
+}
+
+/* Section */
+.commodities-section {
+  max-width: 1100px;
+  margin: 32px auto 64px;
+  padding: 0 16px;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 24px 0;
+  text-align: center;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* GRID */
+.commodities-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Cards */
+.commodity-item {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+}
+.commodity-item:hover {
+  background: #1e293b;
+  border-color: #2b3746;
+  transform: translateY(-1px);
+}
+
+/* Header */
+.commodity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.commodity-name {
+  font-size: 16px;
+  font-weight: 700;
+  color:white
+}
+
+.commodity-expiry {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* Metrics */
+.commodity-metrics {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.change, .per-change {
+  font-weight: 600;
+}
+
+.positive {
+  color: #10b981; /* green */
+}
+.negative {
+  color: #ef4444; /* red */
+}
+
+/* Empty */
+.no-data {
+  text-align: center;
+  color: #9ca3af;
+  margin-top: 12px;
+}

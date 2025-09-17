@@ -491,10 +491,33 @@
     <!-- DASHBOARD -->
     <div *ngIf="!showSignup" class="dashboard-grid">
         <!-- Market Overview -->
-        <div class="market-overview">
-            <h1 class="market-title">🌍 Global Market Overview</h1>
-            <img src="assets/Img.png" class="market-image">
-        </div>
+        <div class="market-overview" 
+     style="height: 53vh; width: 100%; position: relative; border: 1px solid #1f2937; border-radius: 16px; overflow: hidden;">
+
+  <!-- Blurred background -->
+  <div style="
+       background: url('assets/img.png') center center / cover no-repeat;
+       filter: blur(20px) brightness(0.5);
+       position: absolute;
+       top: 0; left: 0; right: 0; bottom: 0;
+       z-index: 0;">
+  </div>
+
+  <!-- Actual image, fully visible -->
+  <div style="display: flex; justify-content: center; align-items: center; height: 100%; position: relative; z-index: 1;">
+    <img 
+      src="assets/stock.png" 
+      alt="Market Map"
+      style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px;">
+  </div>
+</div>
+
+   
+   
+
+        
+
+
 
         <!-- News Ticker -->
         <div class="news-section">
