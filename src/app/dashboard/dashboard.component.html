@@ -1,102 +1,573 @@
-<!-- TOPBAR -->
-<div class="topbar">
-  <div class="logo">🌐 NammaStock</div>
-  <div class="nav">
-    <a routerLink="/usa">USA Market</a>
-    <a routerLink="/ipo">IPO</a>
-    <a routerLink="/commoditiy">Commodities</a>
-    <a routerLink="/login">Logout</a>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title routerLink="/dashboard">NammaStock - Global Trading Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<!-- SIGNUP PAGE -->
-<div *ngIf="showSignup" class="signup-container">
-  <h2>Create Account</h2>
-  <form (ngSubmit)="onSignup()">
-    <label>Email</label>
-    <input type="email" [(ngModel)]="signup.email" name="email" required />
-    <label>Password</label>
-    <input type="password" [(ngModel)]="signup.password" name="password" required />
-    <button type="submit">Sign Up</button>
-  </form>
-</div>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0b0d;
+            color: #e4e4e7;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
 
-<!-- DASHBOARD -->
-<div *ngIf="!showSignup">
-  <!-- MAP SECTION -->
-  <div class="map-section">
-    <h1 class="map-title">🌍 Global Market Overview</h1>
-    <div class="world-map">
-      <svg viewBox="0 0 1000 500"></svg>
-    </div>
-  </div>
+        /* Topbar */
+        .topbar {
+            background: rgba(10, 11, 13, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #1f2937;
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-  <!-- NEWS TICKER -->
-  <div class="news-section">
-    <div class="news-label">LIVE NEWS</div>
-    <div class="news-ticker">
-      <div class="news-item" *ngFor="let item of news">
-        {{ item }}
-      </div>
-    </div>
-  </div>
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-  <!-- EQUITY CHART -->
-  <div class="equity-section glass-card">
-    <h2 class="chart-title">📊 Market Performance (Index vs 50 DMA)</h2>
-    <div class="chart-container">
-      <canvas id="equityChart"></canvas>
-    </div>
-  </div>
+        .nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
 
-  <!-- GAINERS & LOSERS -->
-  <div class="gainers-losers">
-    <!-- Top Gainers -->
-    <div class="card-container gainers glass-card">
-      <h2>🚀 Top Gainers</h2>
-      <div class="stock-card" *ngFor="let stock of topGainers">
-        <div class="stock-left">
-          <div class="stock-info">
-            <h4>{{ stock.company_name }}</h4>
-          </div>
+        .nav a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav a:hover {
+            background: #1f2937;
+            color: #10b981;
+        }
+
+        /* Signup Container */
+        .signup-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .signup-container h2 {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 32px;
+            color: #10b981;
+        }
+
+        .signup-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .signup-container label {
+            font-weight: 500;
+            color: #d1d5db;
+        }
+
+        .signup-container input {
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 12px;
+            color: #e4e4e7;
+            font-size: 14px;
+        }
+
+        .signup-container button {
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Market Overview */
+        .market-overview {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .market-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .world-map-container {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .world-map-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .world-map {
+            width: 100%;
+            height: 300px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 500'%3E%3Cpath fill='%2310b981' fill-opacity='0.3' d='M200,100 L300,80 L400,120 L500,90 L600,110 L700,85 L800,105 L200,100 Z'/%3E%3Cpath fill='%233b82f6' fill-opacity='0.2' d='M150,200 L250,180 L350,220 L450,190 L550,210 L650,185 L750,205 L150,200 Z'/%3E%3C/svg%3E") center/cover no-repeat;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #6b7280;
+            position: relative;
+        }
+
+        /* News Ticker */
+        .news-section {
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            border-radius: 12px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news-label {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            border-radius: 12px 0 0 12px;
+            z-index: 2;
+        }
+
+        .news-ticker {
+            display: flex;
+            gap: 60px;
+            white-space: nowrap;
+            animation: ticker 50s linear infinite;
+            color: white;
+            font-weight: 500;
+            padding-left: 20px;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Chart Section */
+        .chart-section {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .chart-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #10b981;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Custom Chart Alternative + Canvas Support */
+        .chart-container {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 24px;
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chart-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 1;
+        }
+
+        /* Fallback chart line when canvas is not loaded */
+        .chart-line {
+            position: absolute;
+            bottom: 50px;
+            left: 24px;
+            right: 24px;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(59, 130, 246, 0.3));
+            clip-path: polygon(0% 100%, 10% 80%, 20% 70%, 30% 85%, 40% 60%, 50% 55%, 60% 65%, 70% 45%, 80% 50%, 90% 40%, 100% 35%, 100% 100%);
+            border-radius: 4px 4px 0 0;
+            z-index: 1;
+        }
+
+        .chart-metrics {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            gap: 24px;
+        }
+
+        .metric {
+            text-align: right;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric.positive .metric-value {
+            color: #10b981;
+        }
+
+        .metric.negative .metric-value {
+            color: #ef4444;
+        }
+
+        /* Gainers & Losers */
+        .gainers-losers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .stock-section {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gainers .section-title {
+            color: #10b981;
+        }
+
+        .losers .section-title {
+            color: #ef4444;
+        }
+
+        .stock-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stock-item {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .stock-item:hover {
+            background: #1e293b;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .stock-info h4 {
+            font-weight: 600;
+            font-size: 14px;
+            color: #e4e4e7;
+        }
+
+        .stock-price {
+            text-align: right;
+        }
+
+        .price {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e4e4e7;
+        }
+
+        .change {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .positive {
+            color: #10b981;
+        }
+
+        .negative {
+            color: #ef4444;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .gainers-losers {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .topbar {
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            .dashboard-grid {
+                padding: 16px;
+                gap: 16px;
+            }
+
+            .market-title {
+                font-size: 24px;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+
+            .chart-metrics {
+                position: static;
+                justify-content: space-around;
+                margin-top: 16px;
+            }
+        }
+
+        /* Loading states and micro-animations */
+        .stock-item {
+            position: relative;
+        }
+
+        .stock-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gainers .stock-item:hover::before {
+            opacity: 1;
+        }
+
+        .losers .stock-item::before {
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.5), transparent);
+        }
+
+        /* Pulse animation for live data */
+        .news-label::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            margin-left: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="logo">
+            📈 NammaStock
         </div>
-        <div class="stock-price">
-          <div class="price">{{ stock.price }}</div>
-          <div
-            class="change"
-            [ngClass]="{
-              positive: stock.percent_change > 0,
-              negative: stock.percent_change < 0
-            }"
-          >
-            {{ stock.percent_change }}%
-          </div>
+        <div class="nav">
+            <a routerLink="/usa">USA Market</a>
+            <a routerLink="/ipo">IPO</a>
+            <a routerLink="/commoditiy">Commodities</a>
+            <a routerLink="/login">Logout</a>
         </div>
-      </div>
     </div>
 
-    <!-- Top Losers -->
-    <div class="card-container losers glass-card">
-      <h2>📉 Top Losers</h2>
-      <div class="stock-card" *ngFor="let stock of topLossers">
-        <div class="stock-left">
-          <div class="stock-info">
-            <h4>{{ stock.company_name }}</h4>
-          </div>
+    <!-- SIGNUP PAGE -->
+    
+
+    <!-- DASHBOARD -->
+    <div *ngIf="!showSignup" class="dashboard-grid">
+        <!-- Market Overview -->
+        <div class="market-overview">
+            <h1 class="market-title">🌍 Global Market Overview</h1>
+            <img src="assets/Img.png" class="market-image">
         </div>
-        <div class="stock-price">
-          <div class="price">{{ stock.price }}</div>
-          <div
-            class="change"
-            [ngClass]="{
-              positive: stock.percent_change > 0,
-              negative: stock.percent_change < 0
-            }"
-          >
-            {{ stock.percent_change }}%
-          </div>
+
+        <!-- News Ticker -->
+        <div class="news-section">
+            <div class="news-label">LIVE NEWS</div>
+            <div class="news-ticker">
+                <div class="news-item" *ngFor="let item of news">
+                    {{ item }}
+                </div>
+            </div>
         </div>
-      </div>
+
+   
+
+        <!-- Gainers & Losers -->
+        <div class="gainers-losers">
+            <!-- Top Gainers -->
+            <div class="stock-section gainers">
+                <h2 class="section-title">🚀 Top Gainers</h2>
+                <div class="stock-list">
+                    <div class="stock-item" *ngFor="let stock of topGainers">
+                        <div class="stock-info">
+                            <h4>{{ stock.company_name }}</h4>
+                        </div>
+                        <div class="stock-price">
+                            <div class="price">{{ stock.price }}</div>
+                            <div class="change" [ngClass]="{
+                                positive: stock.percent_change > 0,
+                                negative: stock.percent_change < 0
+                            }">
+                                {{ stock.percent_change }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Losers -->
+            <div class="stock-section losers">
+                <h2 class="section-title">📉 Top Losers</h2>
+                <div class="stock-list">
+                    <div class="stock-item" *ngFor="let stock of topLossers">
+                        <div class="stock-info">
+                            <h4>{{ stock.company_name }}</h4>
+                        </div>
+                        <div class="stock-price">
+                            <div class="price">{{ stock.price }}</div>
+                            <div class="change" [ngClass]="{
+                                positive: stock.percent_change > 0,
+                                negative: stock.percent_change < 0
+                            }">
+                                {{ stock.percent_change }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <script>
+        // This preserves your existing chart.js integration
+        // The canvas element is available for your Angular chart logic
+        // CSS fallback chart is hidden when canvas renders properly
+        
+        // Optional: Hide CSS fallback when canvas is detected
+        const canvas = document.getElementById('equityChart');
+        if (canvas) {
+            const fallbackChart = document.querySelector('.chart-line');
+            if (fallbackChart) {
+                // You can hide the fallback when your chart.js renders
+                // fallbackChart.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

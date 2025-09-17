@@ -1,1 +1,133 @@
-<p>commoditiy works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title routerLink="/dashboard">NammaStock - Global Trading Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0a0b0d;
+  color: #e4e4e7;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Topbar */
+.topbar {
+  background: rgba(10, 11, 13, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid #1f2937;
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.nav a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav a:hover {
+  background: #1f2937;
+  color: #10b981;
+}
+
+/* In Progress Section */
+.in-progress {
+  max-width: 800px;
+  margin: 100px auto;
+  text-align: center;
+  padding: 48px;
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.in-progress h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.in-progress p {
+  font-size: 16px;
+  color: #9ca3af;
+  margin-bottom: 24px;
+}
+
+.loader {
+  border: 6px solid #1f2937;
+  border-top: 6px solid #10b981;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo" routerLink="/dashboard">📈 NammaStock</div>
+  <div class="nav">
+    <a routerLink="/usa">USA Market</a>
+    <a routerLink="/ipo">IPO</a>
+    <a routerLink="/commoditiy">Commodities</a>
+    <a routerLink="/login">Logout</a>
+  </div>
+</div>
+
+<!-- In Progress Placeholder -->
+<div class="in-progress">
+  <h1>🚧 commoditiy  In Progress</h1>
+  <p>We’re working hard to bring you real-time global market insights.<br>Stay tuned!</p>
+  <div class="loader"></div>
+</div>
+
+</body>
+</html>
