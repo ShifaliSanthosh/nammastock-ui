@@ -4,13 +4,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
+import { CommoditiyComponent } from './commoditiy/commoditiy.component';
+import { IpoComponent } from './ipo/ipo.component';
+import { UsaComponent } from './usa/usa.component';
 
 const routes: Routes = [
-  { 
-    path: '', 
-    redirectTo: '/login', 
-    pathMatch: 'full' 
-  },
+
   { 
     path: 'login', 
     component: LoginComponent 
@@ -22,12 +21,19 @@ const routes: Routes = [
   { 
     path: 'dashboard', 
     component: DashboardComponent,
-    canActivate: [AuthGuard]
   },
   { 
-    path: '**', 
-    redirectTo: '/login' 
-  }
+    path: 'commoditiy', 
+    component: CommoditiyComponent,
+  },
+  { 
+    path: 'ipo', 
+    component: IpoComponent,
+  },
+  { 
+    path: 'usa', 
+    component: UsaComponent,
+  },
 ];
 
 @NgModule({

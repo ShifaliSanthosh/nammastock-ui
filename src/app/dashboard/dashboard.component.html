@@ -1,12 +1,11 @@
 <!-- TOPBAR -->
 <div class="topbar">
-  <div class="logo">GlobalStockHub</div>
+  <div class="logo">🌐 NammaStock</div>
   <div class="nav">
-    <a href="#">HOME</a>
-    <a href="#">MARKETS</a>
-    <a href="#">NEWS</a>
-    <a href="#">ANALYTICS</a>
-    <a (click)="toggleSignup()">SIGNUP</a>
+    <a routerLink="/usa">USA Market</a>
+    <a routerLink="/ipo">IPO</a>
+    <a routerLink="/commoditiy">Commodities</a>
+    <a routerLink="/login">Logout</a>
   </div>
 </div>
 
@@ -15,21 +14,9 @@
   <h2>Create Account</h2>
   <form (ngSubmit)="onSignup()">
     <label>Email</label>
-    <input
-      type="email"
-      [(ngModel)]="signup.email"
-      name="email"
-      required
-    />
-
+    <input type="email" [(ngModel)]="signup.email" name="email" required />
     <label>Password</label>
-    <input
-      type="password"
-      [(ngModel)]="signup.password"
-      name="password"
-      required
-    />
-
+    <input type="password" [(ngModel)]="signup.password" name="password" required />
     <button type="submit">Sign Up</button>
   </form>
 </div>
@@ -38,11 +25,9 @@
 <div *ngIf="!showSignup">
   <!-- MAP SECTION -->
   <div class="map-section">
-    <h1 class="map-title">Global Market Overview</h1>
+    <h1 class="map-title">🌍 Global Market Overview</h1>
     <div class="world-map">
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
-        <!-- continents + circles -->
-      </svg>
+      <svg viewBox="0 0 1000 500"></svg>
     </div>
   </div>
 
@@ -57,8 +42,8 @@
   </div>
 
   <!-- EQUITY CHART -->
-  <div class="equity-section">
-    <h2 class="chart-title">Market Performance (Index vs 50 DMA)</h2>
+  <div class="equity-section glass-card">
+    <h2 class="chart-title">📊 Market Performance (Index vs 50 DMA)</h2>
     <div class="chart-container">
       <canvas id="equityChart"></canvas>
     </div>
@@ -67,7 +52,7 @@
   <!-- GAINERS & LOSERS -->
   <div class="gainers-losers">
     <!-- Top Gainers -->
-    <div class="card-container gainers">
+    <div class="card-container gainers glass-card">
       <h2>🚀 Top Gainers</h2>
       <div class="stock-card" *ngFor="let stock of topGainers">
         <div class="stock-left">
@@ -91,7 +76,7 @@
     </div>
 
     <!-- Top Losers -->
-    <div class="card-container losers">
+    <div class="card-container losers glass-card">
       <h2>📉 Top Losers</h2>
       <div class="stock-card" *ngFor="let stock of topLossers">
         <div class="stock-left">
